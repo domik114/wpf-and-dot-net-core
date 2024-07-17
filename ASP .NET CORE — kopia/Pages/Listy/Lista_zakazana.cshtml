@@ -1,0 +1,85 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using WebApplication1.Utility
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+@model WebApplication1.Pages.Listy.Lista_zakazanaModel
+@{
+    ViewData["Title"] = "Lista zakazana";
+}
+
+<form method="get">
+    <div class="">
+        <div class="container" style="height: 60px;">
+            <div class="row">
+                <div class="col-11">
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-3">
+                            @Html.Editor("searchTytul", new { htmlAttributes = new { @class = "form-control", placeholder = "Tytul..." } })
+                        </div>
+                        <div class="col-3">
+                            @Html.Editor("searchFirma", new { htmlAttributes = new { @class = "form-control", placeholder = "Firma..." } })
+                        </div>
+                        <div class="col-3">
+                            @Html.Editor("searchGatunek", new { htmlAttributes = new { @class = "form-control", placeholder = "Gatunek..." } })
+                        </div>
+                        <div class="col-3">
+                            @Html.Editor("searchOcena", new { htmlAttributes = new { @class = "form-control", placeholder = "Ocena..." } })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="row" style="padding-top: 10px; padding-right: 15px;">
+                        <button type="submit" name="submit" class="btn btn-info form-control">Szukaj</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+    </div>
+</form>
+<br />
+<br />
+
+<div class="container row p-0 m-0">
+    <div class="col-10">
+        <h2 class="text-info">Lista zakazana</h2>
+    </div>
+
+    <div class="col-2">
+        <a asp-area="" asp-page="/Listy/Wszystkie_gry" class="btn btn-info form-control text-white">Dodaj grę</a>
+    </div>
+</div>
+
+<form method="post">
+    <div class="col-12">
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>@Html.DisplayNameFor(m => m.GraListVM.GraList[0].Tytul)</th>
+                <th>@Html.DisplayNameFor(m => m.GraListVM.GraList[0].Firma)</th>
+                <th>@Html.DisplayNameFor(m => m.GraListVM.GraList[0].Gatunek)</th>
+                <th>@Html.DisplayNameFor(m => m.GraListVM.GraList[0].Ocena)</th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model.GraListVM.GraList)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => item.Tytul)</td>
+                    <td>@Html.DisplayFor(m => item.Firma)</td>
+                    <td>@Html.DisplayFor(m => item.Gatunek)</td>
+                    <td>@Html.DisplayFor(m => item.Ocena)</td>
+
+                    <td class="text-center">
+                        <button asp-page-handler="Delete" asp-route-id="@item.Id" onclick="return confirm('Jesteś pewien, że chcesz usunąć element?')" class="btn btn-danger btn-sm" style="min-width: 50px;">Usuń</button>
+                    </td>
+                </tr>
+            }
+
+            <tr>
+                <td colspan="4" class="text-right"></td>
+                <td colspan="4" class="text-right"><div page-model="@Model.GraListVM.PagingInfo" asp-action="Gra" page-class="btn border" page-class-normal="btn btn-light" page-class-selected="btn btn-info active" class="btn-group"></div></td>
+            </tr>
+        </table>
+    </div>
+</form>

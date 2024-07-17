@@ -1,0 +1,75 @@
+﻿@page
+@model KinoBase.Pages.FilmyModel
+@{
+}
+
+<br /> <br />
+<div class="container" row p-0 m-0>
+    
+       <div class="border backgroundWhite">
+        <div class="row">
+            <div class="col-9">
+                <h2 class="text-info">Lista filmów</h2>
+            </div>
+            <div class="col-3">
+                <a asp-page="DodajFilm" class="btn btn-info form-control text-white"><i class="fas fa-plus"></i>&nbsp; Dodaj nowy film</a>
+            </div>
+        </div>
+
+        <br />
+        <div>
+            @if (Model.Film.Count == 0)
+            {
+                <p>Brak filmów</p>
+            }
+            else
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            @Html.DisplayNameFor(m => m.Film[0].Tytul)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.Film[0].Rok)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.Film[0].Gatunek)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.Film[0].Rezyser)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.Film[0].Kraj)
+                        </th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model.Film)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.Tytul)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Rok)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Gatunek)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Rezyser)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Kraj)
+                            </td>
+                            <td>
+                                <a asp-page="Usun" asp-route-id="@item.ID"  class="btn btn-danger btn-sm">Usuń</a>                                
+                                <a asp-page="Edytuj" asp-route-id="@item.ID" class="btn btn-success btn-sm text-white">Edytuj</a>
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+       </div>
+</div>
+</div>

@@ -1,0 +1,6 @@
+*.rar
+*.zip
+.vs/
+bin/
+obj/
+Properties/

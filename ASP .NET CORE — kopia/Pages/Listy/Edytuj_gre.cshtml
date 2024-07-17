@@ -1,0 +1,55 @@
+﻿@page
+@model WebApplication1.Pages.Listy.Edytuj_greModel
+@{
+    ViewData["Title"] = "Edytuj grę";
+}
+
+<div class="border container padding-20">
+    <form method="post">
+        <input type="hidden" asp-for="Gra.Id" />
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Gra.Tytul"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Gra.Tytul" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Gra.Firma"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Gra.Firma" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Gra.Gatunek"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Gra.Gatunek" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Gra.Ocena"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Gra.Ocena" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3 offset-4">
+                <input type="submit" value="Edytuj" class="btn btn-info form-control" />
+            </div>
+            <div class="col-3">
+                <a class="btn btn-success form-control text-white pointer" asp-page="/Listy/Wszystkie_gry">Powrót do listy gier</a>
+            </div>
+        </div>
+    </form>
+</div>

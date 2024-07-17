@@ -1,0 +1,76 @@
+﻿@page
+@model WebApplication1.Pages.Users.UzytkownicyModel
+@{
+    ViewData["Title"] = "Użytkownicy";
+}
+
+<div class="">
+    <div class="container" style="height: 60px;">
+        <div class="row">
+            <div class="col-11">
+                <div class="row" style="padding-top: 10px;">
+                    <div class="col-6">
+                        @Html.Editor("searchUserName", new { htmlAttributes = new { @class = "form-control", placeholder = "Nazwa użytkownika..." } })
+                    </div>
+                    <div class="col-6">
+                        @Html.Editor("searchEmail", new { htmlAttributes = new { @class = "form-control", placeholder = "Email..." } })
+                    </div>
+                </div>
+            </div>
+            <div class="col-1">
+                <div class="row" style="padding-top: 10px; padding-right: 15px;">
+                    <button type="submit" name="submit" class="btn btn-info form-control">Szukaj</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+
+</div>
+
+<form method="get">
+    <br /><br />
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Lista zarejestrowanych użytkowników</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-page="/Account/Register" asp-area="Identity" class="btn btn-info">
+                <i class="fas fa-plus"></i>&nbsp;Stwórz nowego użytkownika
+            </a>
+        </div>
+    </div>
+
+    
+</form>
+
+<form method="post">
+    <div class="">
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>Nazwa użytkownika</th>
+                <th>@Html.DisplayNameFor(m => m.UsersListVM.IdentityUserList[0].Email)</th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model.UsersListVM.IdentityUserList)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => item.UserName)</td>
+                    <td>@Html.DisplayFor(m => item.Email)</td>
+                    <td></td>
+                    <td class="text-center">
+                        <a asp-route-id="@item.Id" asp-page="/Users/Edytuj" class="btn btn-success btn-sm text-white pointer" style="min-width: 50px;">Edytuj</a>
+                        <button asp-page-handler="Delete" asp-route-id="@item.Id" onclick="return confirm('Jesteś pewien, że chcesz usunąć element?')" class="btn btn-danger btn-sm" style="min-width: 50px;">Usuń</button>
+                    </td>
+                </tr>
+            }
+
+            <tr>
+                <td colspan="4" class="text-right">
+                    <div page-model="@Model.UsersListVM.PagingInfo" asp-action="Uzytkownicy" page-class="btn border" page-class-normal="btn btn-light" page-class-selected="btn btn-info active" class="btn-group"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
